@@ -1,0 +1,27 @@
+# Arquivos de ambiente virtual
+.venv/
+env/
+venv/
+ENV/
+.venv/
+.Python
+
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Configurações do editor
+.vscode/
+.idea/
+
+# Arquivos de log
+*.log
+
+# Environment variables
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production

@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "telegram-for-crag"
+version = "0.1.0"
+description = ""
+authors = ["Pedro HB Ribeiro <pedro.hbueno03@usp.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytelegrambotapi = "^4.26.0"
+pydantic-settings = "^2.8.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
