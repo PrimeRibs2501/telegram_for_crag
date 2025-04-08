@@ -4,7 +4,7 @@ import json
 from settings import settings
 
 bot = telebot.TeleBot(settings.API_KEY)
-url = f'{settings.HOST}/{settings.CHAT_URL}'#:{settings.API_PORT}/{settings.CHAT_URL}'
+url = f'{settings.HOST}:{settings.API_PORT}/{settings.CHAT_URL}'
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
