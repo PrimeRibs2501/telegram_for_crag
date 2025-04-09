@@ -3,8 +3,25 @@ import requests
 import json
 from settings import settings
 
+
 bot = telebot.TeleBot(settings.API_KEY)
-url = f'{settings.HOST}:{settings.API_PORT}/{settings.CHAT_URL}'
+url = f'{settings.HOST}:{settings.API_PORT}{settings.CHAT_URL}'
+
+
+@bot.message_handler(commands=['test'])
+def test(message):
+    try:
+        # Remove o caminho da URL para pegar apenas o endpoint base
+        base_url = url.rsplit('/', 1)[0]
+        teste = requests.get(base_url)
+        response_json = teste.json()
+        status_message = response_json.get(
+            "status_message", "Sem mensagem de status"
+        )
+        bot.reply_to(message, status_message)
+    except Exception as e:
+        bot.reply_to(message, f"Erro ao testar API: {str(e)}")
+
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -16,7 +33,9 @@ Me diga, como posso te ajudar?
     """
     bot.reply_to(message, texto)
 
+
 def chat_response(message: str, user_id: str) -> str:
+    route = 'new_message'
     user_input = message
     payload = {
         "message": user_input, 
@@ -39,10 +58,11 @@ def chat_response(message: str, user_id: str) -> str:
     else:
         return "Desculpe, não consegui processar sua solicitação no momento."
 
+
 @bot.message_handler(func=lambda message: True)
 def send_noticias(message):
-
     response = chat_response(message.text, message.from_user.id)
     bot.reply_to(message, response)
+
 
 bot.polling(none_stop=True, interval=0, timeout=60)
